@@ -1,16 +1,20 @@
-# crypto_tracker
+# Crypto Tracker
+A simple crypto tracker Flutter app with cero third party package, that incorparates the [Nomics](https://nomics.com/) api. 
 
-A new Flutter project.
+The application collects the historical and current prices (in some fiat currencies) of the most popular cryptocurrencies with graphic display.
 
-## Getting Started
+Be sure to leave a star :sweat_smile:.
 
-This project is a starting point for a Flutter application.
+Features:
+* MVVM architecture: Based on inhereted widget for state control in the view models.
+* Render Object: The graph is a LeafRenderObjectWidget.
+* Animations.
+* Dark and light mode.
+* Streams.
 
-A few resources to get you started if this is your first Flutter project:
+Configuration:
+1. Obtain your [API Key](https://p.nomics.com/cryptocurrency-bitcoin-api)
+2. Navigate to lib > utils > string_helpers and copy the key where it says 'YOUR_API_KEY_HERE'.
+3. Run the app
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
