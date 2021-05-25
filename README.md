@@ -22,11 +22,8 @@ Be sure to leave a star :sweat_smile:.
 <p float="left">
   <img width="200" height="360" src="https://user-images.githubusercontent.com/70621340/119414434-69c35700-bca4-11eb-95a7-e9509dc86641.jpg">
   <img width="200" height="360" src="https://user-images.githubusercontent.com/70621340/119414439-6b8d1a80-bca4-11eb-8d86-b3082f47ca38.jpg">
+  <img width="200" height="360" src="https://user-images.githubusercontent.com/70621340/119499698-d2014f80-bd1b-11eb-830e-e7c5d7a8e5ac.jpg">
 </p>
-
-
-  <video width="320" height="240" controls>
-    <source src="https://user-images.githubusercontent.com/70621340/119498989-193b1080-bd1b-11eb-8cab-ccb1bbc36954.mp4" type="video/mp4">
-  </video>
+<source src="https://user-images.githubusercontent.com/70621340/119498989-193b1080-bd1b-11eb-8cab-ccb1bbc36954.mp4" type="video/mp4">
 
 
