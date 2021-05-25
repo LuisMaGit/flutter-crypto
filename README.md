@@ -1,4 +1,3 @@
-![Screenshot_20210525-085019](https://user-images.githubusercontent.com/70621340/119500900-28bb5900-bd1d-11eb-8368-565b2d3e8eec.jpg)
 # Crypto Tracker
 A simple crypto tracker Flutter app with cero third party package, that incorparates the [Nomics](https://nomics.com/) api. 
 
