@@ -5,6 +5,8 @@ This application collects the historical and current prices (in some fiat curren
 
 Be sure to leave a star :sweat_smile:.
 
+🚨 ##**_NOTE:_**: The [nomics.com](https://nomics.com/) is no longer active.
+
 ### Features:
 * MVVM architecture: Based on inherited widget for state control in the view models.
 * Render Object: The graph is a LeafRenderObjectWidget.
