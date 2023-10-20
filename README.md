@@ -1,5 +1,5 @@
 # Crypto Tracker
-## A simple crypto tracker Flutter app with cero packages, that incorparates the [Nomics](https://nomics.com/) api. 
+## Crypto tracker Flutter app with zero packages consuming the [Nomics](https://nomics.com/) api. 
 
 This application collects the historical and current prices (in some fiat currencies) of the most popular cryptocurrencies with graphic display.
 
