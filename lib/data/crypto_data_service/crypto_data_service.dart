@@ -181,7 +181,6 @@ class CryptoDataService {
       }
       return null;
     } catch (e) {
-      print('XX_ ${e.toString()}');
       return null;
     }
   }
