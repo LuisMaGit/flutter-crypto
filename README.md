@@ -1,11 +1,9 @@
-# Crypto Tracker
-## Crypto tracker Flutter app with zero packages consuming the [Nomics](https://nomics.com/) api. 
+# Zero Packages Crypto Tracker
+## Crypto tracker Flutter app with zero packages consuming the [CoinGecko](https://www.coingecko.com/) api. 
 
 This application collects the historical and current prices (in some fiat currencies) of the most popular cryptocurrencies with graphic display.
 
 Be sure to leave a star :sweat_smile:.
-
-🚨 **_NOTE_**: The [nomics.com](https://nomics.com/) is no longer active.
 
 https://user-images.githubusercontent.com/70621340/119499926-1260cd80-bd1c-11eb-8b67-be82a52ec316.mp4
 
@@ -23,8 +21,8 @@ https://user-images.githubusercontent.com/70621340/119499926-1260cd80-bd1c-11eb-
 * Streams.
 
 ### Configuration:
-1. Obtain your [API Key](https://p.nomics.com/cryptocurrency-bitcoin-api)
-2. Navigate to lib > utils > string_helpers and copy the key where it says 'YOUR_API_KEY_HERE'.
+1. Obtain your [CoinGecko Free Api Key](https://docs.coingecko.com/reference/setting-up-your-api-key),
+2. Navigate to <code>lib/data/crypto_data_service/crypto_data_api_contracts.dart</code> and copy the key where it says <code>'YOUR_API_KEY_HERE'</code>.
 3. Run the app.
 
 
