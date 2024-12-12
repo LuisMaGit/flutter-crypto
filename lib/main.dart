@@ -1,5 +1,5 @@
-import 'package:crypto_tracker/ui/views/theme_builder/theme_builder.dart';
-import 'package:crypto_tracker/ui/views/main_view/main_view.dart';
+import 'package:crypto_tracker/ui/features/theme_builder/theme_builder.dart';
+import 'package:crypto_tracker/ui/features/main_view/main_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,10 +12,11 @@ class CryptoTracker extends StatelessWidget {
     return ThemeBuilder(
       builder: (theme) {
         return MaterialApp(
-            title: 'CryptoTracker',
-            theme: theme,
-            debugShowCheckedModeBanner: false,
-            home: MainView());
+          title: 'CryptoTracker',
+          theme: theme,
+          debugShowCheckedModeBanner: false,
+          home: MainView(),
+        );
       },
     );
   }

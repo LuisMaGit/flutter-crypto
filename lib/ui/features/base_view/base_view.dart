@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:crypto_tracker/ui/views/base_vm.dart';
+import 'package:crypto_tracker/ui/features/base_view/base_vm.dart';
 
 class BaseViewBuilder<T extends BaseVM> extends StatefulWidget {
   final T viewModel;

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 const kGreen = Color(0xFF00b894);
@@ -6,6 +5,8 @@ const kBlack = Color(0xFF353b48);
 const kBlackDarker = Color(0xFF2f3640);
 const kWhite = Color(0xFFffffff);
 const kWhiteDarker = Color(0xFFf1f2f6);
+const kRedAccent = Colors.redAccent;
+const kGreenAccent = Colors.greenAccent;
 
 const kGray = Color(0XFFa4b0be);
 const kGrayDarker = Color(0x8a000000);

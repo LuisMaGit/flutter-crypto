@@ -1,6 +1,5 @@
-import 'package:crypto_tracker/services/theme_service.dart';
-import 'package:crypto_tracker/ui/views/base_vm.dart';
-import 'package:crypto_tracker/utils/enums.dart';
+import 'package:crypto_tracker/data/theme_service.dart';
+import 'package:crypto_tracker/ui/features/base_view/base_vm.dart';
 
 class ThemeBuilderVM extends BaseVM {
   final _themeService = ThemeService();

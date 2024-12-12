@@ -1,12 +1,12 @@
-import 'package:crypto_tracker/models/crypto_model.dart';
-import 'package:crypto_tracker/ui/styles/kcolors.dart';
-import 'package:crypto_tracker/ui/views/main_view/main_view_models.dart';
+import 'package:crypto_tracker/data/crypto_data_service/crypto_data_constants.dart';
+import 'package:crypto_tracker/data/crypto_data_service/crypto_data_model.dart';
+import 'package:crypto_tracker/ui/ui_constants/assets.dart';
+import 'package:crypto_tracker/ui/ui_constants/kcolors.dart';
 import 'package:crypto_tracker/ui/widgets/graph.dart';
-import 'package:crypto_tracker/utils/string_helpers.dart';
 
-abstract class Binders {
+abstract class UIHelper {
   static List<Plot> getPlotsFromCryptoModel(List<CryptoModel> cryptoModel) {
-    return cryptoModel.map<Plot>((c) => Plot(c.time, c.price)).toList();
+    return cryptoModel.map<Plot>((c) => Plot(c.prettyTime, c.price)).toList();
   }
 
   static const cryptoName = {
@@ -48,13 +48,13 @@ abstract class Binders {
   static const fiat = {
     FiatCode.USD: '\$',
     FiatCode.EUR: '€',
-    FiatCode.CUP: 'C'
+    FiatCode.CAD: 'C\$'
   };
 
   static const fiatName = {
     FiatCode.USD: 'United States Dollar (USD)',
     FiatCode.EUR: 'Euro (EUR)',
-    FiatCode.CUP: 'Cuban Peso (CUP)'
+    FiatCode.CAD: 'Canadian Dollar (CAD)'
   };
 
   static const date = {
@@ -63,7 +63,5 @@ abstract class Binders {
     TimeSpan.TwoWeeks: '2W',
     TimeSpan.Month: '1M',
     TimeSpan.Year: '1Y',
-    TimeSpan.TwoYears: '2Y',
-    TimeSpan.FiveYears: '5Y',
   };
 }

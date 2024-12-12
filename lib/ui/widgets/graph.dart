@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:crypto_tracker/ui/ui_constants/kcolors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -79,10 +80,10 @@ class Graph extends LeafRenderObjectWidget {
   Graph({
     required this.graphData,
     this.yMoveFactor = 0,
-    this.primaryColor = Colors.black,
-    this.backGroundColor = Colors.white,
-    this.cardColor = Colors.white,
-    this.bigTextColor = Colors.black,
+    this.primaryColor = kBlack,
+    this.backGroundColor = kWhite,
+    this.cardColor = kWhite,
+    this.bigTextColor = kBlack,
     this.primaryTextStyle,
     this.secondaryTextStyle,
   });
@@ -121,10 +122,10 @@ class RenderGraphBox extends RenderBox {
   RenderGraphBox({
     required GraphModel graphData,
     double yMoveFactor = 0,
-    Color primaryColor = Colors.black,
-    Color backGroundColor = Colors.white,
-    Color cardColor = Colors.white,
-    Color bigTextColor = Colors.black,
+    Color primaryColor = kBlack,
+    Color backGroundColor = kWhite,
+    Color cardColor = kWhite,
+    Color bigTextColor = kBlack,
     TextStyle? primaryTextStyle,
     TextStyle? secondaryTextStyle,
   })  : _graphData = graphData,
@@ -520,7 +521,7 @@ class RenderGraphBox extends RenderBox {
                 : '',
             style: _secondaryTextStyle?.copyWith(
               fontSize: 14,
-              color: grow ? Colors.greenAccent : Colors.redAccent,
+              color: grow ? kGreenAccent : kRedAccent,
             )),
         textAlign: TextAlign.left,
         maxLines: 1,

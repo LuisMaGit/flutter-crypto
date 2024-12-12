@@ -1,12 +1,13 @@
-import 'package:crypto_tracker/ui/views/base_view.dart';
+import 'package:crypto_tracker/data/crypto_data_service/crypto_data_constants.dart';
+import 'package:crypto_tracker/ui/features/base_view/base_view.dart';
+import 'package:crypto_tracker/ui/features/base_view/base_view_state.dart';
+import 'package:crypto_tracker/ui/ui_constants/labels.dart';
 import 'package:crypto_tracker/ui/widgets/crypto_card.dart';
-import 'package:crypto_tracker/ui/views/main_view/main_view_models.dart';
 import 'package:crypto_tracker/ui/widgets/graph.dart';
-import 'package:crypto_tracker/ui/views/main_view/main_view_vm.dart';
+import 'package:crypto_tracker/ui/features/main_view/main_view_vm.dart';
 import 'package:crypto_tracker/ui/widgets/modal_error.dart';
 import 'package:crypto_tracker/ui/widgets/modal_fiat_selector.dart';
-import 'package:crypto_tracker/utils/binders.dart';
-import 'package:crypto_tracker/utils/enums.dart';
+import 'package:crypto_tracker/ui/ui_helpers.dart';
 import 'package:flutter/material.dart';
 
 class MainView extends StatefulWidget {
@@ -84,8 +85,10 @@ class _MainViewState extends State<MainView>
                   initialScrollOffset: _w * model.cryptoSelected.index)
                 ..addListener(() {
                   final position = _scrollController.position.pixels;
-                  if (position % _w == 0) {
-                    final idx = position ~/ _w;
+                  final positionTruncated = position.toInt();
+                  final wTruncated = _w.toInt();
+                  if (positionTruncated % wTruncated == 0) {
+                    final idx = positionTruncated ~/ wTruncated;
                     model.changeCrypto(CryptoCode.values[idx]);
                   }
                 });
@@ -101,22 +104,26 @@ class _MainViewState extends State<MainView>
             viewModel: model,
             builder: (context) {
               final graphModel = GraphModel(
-                prefixBigText: Binders.fiat[model.fiatSelected] ?? '',
+                prefixBigText: UIHelper.fiat[model.fiatSelected] ?? '',
                 plots: [],
               );
 
-              if (model.state == ViewState.Bussy) {
-                final baseText =
-                    'Loading ${Binders.cryptoName[model.cryptoSelected] ?? ''} data...';
+              if (model.state == BaseViewState.Bussy) {
                 return _MainBody(
-                    disable: true,
-                    scrollController: _scrollController,
-                    graphModel: graphModel.copyWith(bigText: baseText));
+                  disable: true,
+                  scrollController: _scrollController,
+                  graphModel: graphModel.copyWith(
+                    bigText: Labels.mainViewloading(
+                      UIHelper.cryptoName[model.cryptoSelected] ?? '',
+                    ),
+                  ),
+                );
               }
-              if (model.state == ViewState.Iddle) {
-                final plots = Binders.getPlotsFromCryptoModel(
-                    model.detailsSelected.cryptoData);
-                final baseText = '1 ${model.strCryptoCodeSelected} ≈';
+              if (model.state == BaseViewState.Iddle) {
+                final plots = UIHelper.getPlotsFromCryptoModel(
+                  model.detailsSelected.cryptoData,
+                );
+                final baseText = '1 ${model.cryptoSelected.uiCode} ≈';
                 return _MainBody(
                     curvedAnimation: _curveYAnimation,
                     scrollController: _scrollController,
@@ -146,10 +153,12 @@ class _MainBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _h = MediaQuery.of(context).size.height;
-    final _w = MediaQuery.of(context).size.width;
-    final _model = BaseViewInheretedWidget.of<MainViewVM>(context).viewModel;
+    final size = MediaQuery.of(context).size;
+    final _h = size.height;
+    final _w = size.width;
+    final _vm = BaseViewInheretedWidget.of<MainViewVM>(context).viewModel;
     final _spacer = SizedBox(height: 16);
+    final theme = Theme.of(context);
     return Center(
       child: ListView(
         shrinkWrap: true,
@@ -164,19 +173,19 @@ class _MainBody extends StatelessWidget {
                 flex: 8,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 12.0),
-                  child: Text('CryptoTracker',
-                      style: Theme.of(context)
+                  child: Text(Labels.appName(),
+                      style: theme
                           .textTheme
-                          .headline1!
+                          .headlineLarge!
                           .copyWith(fontSize: 34)),
                 ),
               ),
               _ButtonAppBarWrapper(
-                  onTap: disable ? () {} : _model.openFiatDialog,
-                  child: Text(Binders.fiat[_model.fiatSelected] ?? '',
-                      style: Theme.of(context).textTheme.headline1)),
+                  onTap: disable ? () {} : _vm.openFiatDialog,
+                  child: Text(UIHelper.fiat[_vm.fiatSelected] ?? '',
+                      style: theme.textTheme.headlineLarge)),
               _ButtonAppBarWrapper(
-                  onTap: _model.changeTheme,
+                  onTap: _vm.changeTheme,
                   child: Icon(Icons.lightbulb_outline_rounded)),
             ],
           ),
@@ -194,26 +203,26 @@ class _MainBody extends StatelessWidget {
                     children: TimeSpan.values.map((t) {
                       return Center(
                         child: GestureDetector(
-                          onTap: disable ? () {} : () => _model.changeDate(t),
+                          onTap: disable ? () {} : () => _vm.changeDate(t),
                           child: Container(
                             margin: const EdgeInsets.only(right: 20),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 5),
                             decoration: BoxDecoration(
-                                color: t == _model.timeSpanSelected
-                                    ? Binders
-                                        .cyrptoColor[_model.cryptoSelected]!
+                                color: t == _vm.timeSpanSelected
+                                    ? UIHelper
+                                        .cyrptoColor[_vm.cryptoSelected]!
                                         .withOpacity(.5)
-                                    : Theme.of(context)
+                                    : theme
                                         .colorScheme
                                         .onBackground,
                                 borderRadius: BorderRadius.circular(14)),
-                            child: Text(Binders.date[t] ?? '',
-                                style: Theme.of(context)
+                            child: Text(UIHelper.date[t] ?? '',
+                                style: theme
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyLarge!
                                     .copyWith(
-                                        color: Theme.of(context)
+                                        color: theme
                                             .colorScheme
                                             .secondary)),
                           ),
@@ -233,13 +242,13 @@ class _MainBody extends StatelessWidget {
                   return Graph(
                     yMoveFactor: curvedAnimation?.value ?? 0,
                     graphData: graphModel,
-                    primaryColor: Binders.cyrptoColor[_model.cryptoSelected] ??
-                        Theme.of(context).colorScheme.primary,
-                    backGroundColor: Theme.of(context).canvasColor,
-                    bigTextColor: Theme.of(context).colorScheme.primary,
-                    cardColor: Theme.of(context).colorScheme.onBackground,
-                    primaryTextStyle: Theme.of(context).textTheme.headline1,
-                    secondaryTextStyle: Theme.of(context).textTheme.caption,
+                    primaryColor: UIHelper.cyrptoColor[_vm.cryptoSelected] ??
+                        theme.colorScheme.primary,
+                    backGroundColor: theme.canvasColor,
+                    bigTextColor: theme.colorScheme.primary,
+                    cardColor: theme.colorScheme.onBackground,
+                    primaryTextStyle: theme.textTheme.headlineLarge,
+                    secondaryTextStyle: theme.textTheme.bodySmall,
                   );
                 }),
           ),
@@ -256,32 +265,32 @@ class _MainBody extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         children: CryptoCode.values
                             .map((c) => GestureDetector(
-                                  onTap: () => _model.changeCryptoByTap(c),
+                                  onTap: () => _vm.changeCryptoByTap(c),
                                   child: Container(
                                     margin: const EdgeInsets.only(right: 16),
                                     padding: const EdgeInsets.only(right: 16),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(23),
-                                        color: c == _model.cryptoSelected
-                                            ? Binders.cyrptoColor[c]!
+                                        color: c == _vm.cryptoSelected
+                                            ? UIHelper.cyrptoColor[c]!
                                                 .withOpacity(.5)
-                                            : Theme.of(context)
+                                            : theme
                                                 .colorScheme
                                                 .onBackground),
                                     child: Row(
                                       children: [
                                         CircleAvatar(
                                             radius: 20,
-                                            backgroundColor: Theme.of(context)
+                                            backgroundColor: theme
                                                 .colorScheme
                                                 .onBackground,
                                             child: Image.asset(
-                                                Binders.cryptoPic[c]!)),
+                                                UIHelper.cryptoPic[c]!)),
                                         SizedBox(width: 10),
-                                        Text(Binders.cryptoName[c] ?? '',
-                                            style: Theme.of(context)
+                                        Text(UIHelper.cryptoName[c] ?? '',
+                                            style: theme
                                                 .textTheme
-                                                .bodyText1)
+                                                .bodyLarge)
                                       ],
                                     ),
                                   ),
@@ -307,21 +316,21 @@ class _MainBody extends StatelessWidget {
                   width: _w,
                   child: Center(
                     child: CriptoCard(
-                      animation: _model.cryptoSelected == cryptoCode
+                      animation: _vm.cryptoSelected == cryptoCode
                           ? curvedAnimation
                           : null,
                       cryptoCode: cryptoCode,
-                      colorCrypto: Binders.cyrptoColor[cryptoCode] ??
-                          Theme.of(context).colorScheme.secondary,
-                      decrease: _model.detailsOf(cryptoCode).percentage == 0
+                      colorCrypto: UIHelper.cyrptoColor[cryptoCode] ??
+                          theme.colorScheme.secondary,
+                      decrease: _vm.detailsOf(cryptoCode).percentage == 0
                           ? null
-                          : _model.detailsOf(cryptoCode).percentage.isNegative,
-                      codeStr: _model.strCodeOf(cryptoCode),
-                      percentage: _model.detailsOf(cryptoCode).percentageStr,
-                      price: _model.detailsOf(cryptoCode).lastStr,
-                      fiat: Binders.fiat[_model.fiatSelected] ?? '',
-                      plots: Binders.getPlotsFromCryptoModel(
-                          _model.detailsOf(cryptoCode).cryptoData),
+                          : _vm.detailsOf(cryptoCode).percentage.isNegative,
+                      codeStr: cryptoCode.uiCode,
+                      percentage: _vm.detailsOf(cryptoCode).percentageStr,
+                      price: _vm.detailsOf(cryptoCode).lastStr,
+                      fiat: UIHelper.fiat[_vm.fiatSelected] ?? '',
+                      plots: UIHelper.getPlotsFromCryptoModel(
+                          _vm.detailsOf(cryptoCode).cryptoData),
                     ),
                   ),
                 );
@@ -343,15 +352,13 @@ class _ButtonAppBarWrapper extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        flex: 1,
-        child: SizedBox(
-            width: 50,
-            child: TextButton(
-                onPressed: onTap,
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.only(right: 12))),
-                child: child)));
+    return SizedBox(
+        width: 50,
+        child: TextButton(
+            onPressed: onTap,
+            style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    EdgeInsets.only(right: 12))),
+            child: child));
   }
 }

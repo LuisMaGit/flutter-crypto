@@ -1,0 +1,4 @@
+enum BaseViewState{
+  Bussy,
+  Iddle,
+}

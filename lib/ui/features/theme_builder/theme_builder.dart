@@ -1,7 +1,7 @@
-import 'package:crypto_tracker/ui/styles/kcolors.dart';
-import 'package:crypto_tracker/ui/views/base_view.dart';
-import 'package:crypto_tracker/ui/views/theme_builder/theme_builder_vm.dart';
-import 'package:crypto_tracker/utils/enums.dart';
+import 'package:crypto_tracker/data/theme_service.dart';
+import 'package:crypto_tracker/ui/ui_constants/kcolors.dart';
+import 'package:crypto_tracker/ui/features/base_view/base_view.dart';
+import 'package:crypto_tracker/ui/features/theme_builder/theme_builder_vm.dart';
 import 'package:flutter/material.dart';
 
 class ThemeBuilder extends StatefulWidget {
@@ -33,7 +33,7 @@ class _ThemeBuilderState extends State<ThemeBuilder> {
             onBackground: kWhite,
             secondary: kBlack,
             onSecondary: kBlackDarker,
-            secondaryVariant: kGrayDarker,
+            tertiary: kGrayDarker,
           );
           break;
 
@@ -46,31 +46,30 @@ class _ThemeBuilderState extends State<ThemeBuilder> {
             onBackground: kBlack,
             secondary: kWhite,
             onSecondary: kWhiteDarker,
-            secondaryVariant: kGray,
+            tertiary: kGray,
           );
           break;
       }
 
       return ThemeData(
-        accentColor: primary,
         primaryColor: primary,
         textTheme: TextTheme(
-            headline1: TextStyle(
+            headlineLarge: TextStyle(
               color: colorScheme.secondary,
               fontWeight: FontWeight.bold,
               fontSize: 24,
             ),
-            headline2: TextStyle(
+            headlineMedium: TextStyle(
               color: colorScheme.secondary,
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
-            bodyText1: TextStyle(
+            bodyLarge: TextStyle(
               color: colorScheme.secondary,
               fontSize: 14,
             ),
-            caption: TextStyle(
-              color: colorScheme.secondaryVariant,
+            bodySmall: TextStyle(
+              color: colorScheme.tertiary,
               fontSize: 12,
             )),
         canvasColor: canvasColor,
